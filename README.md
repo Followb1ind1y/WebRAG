@@ -11,7 +11,6 @@ An AI-powered retrieval-augmented generation (RAG) system that extracts informat
 - **📦 Dockerized Deployment**: Ready for cloud deployment (AWS/GCP).  
 
 ---
-
 ## 📂 Project Structure  
 
 ```bash
@@ -30,3 +29,43 @@ WebRAG/
 │── docker/               # Docker deployment files
 │── requirements.txt      # Dependencies
 │── README.md             # Project Documentation
+```
+
+---
+## **1️⃣ Data Collection & Preprocessing**
+
+Extract relevant text from a given **webpage URL** and preprocess it for efficient retrieval.  
+
+### 🔹 Steps  
+1. **Crawl Web Content**: Use `BeautifulSoup` and `requests` to extract text.  
+2. **Text Cleaning**: Remove HTML tags, special characters, and stopwords (spaCy/NLTK).  
+3. **Chunking**: Segment text into smaller units (e.g., 512 tokens per chunk).  
+
+### 🔹 Run the script  
+```bash
+python src/scraper.py --url "https://example.com/article"
+```
+
+### ✅ Output Example
+```
+{
+  "title": "Advancements in AI Healthcare",
+  "content": [
+    "Artificial intelligence is transforming healthcare by...",
+    "One major application is medical image analysis...",
+    "...more text extracted from the webpage..."
+  ]
+}
+```
+
+---
+## 2️⃣ Embedding & Vector Storage
+
+🔹 Goal
+
+Convert extracted text into dense embeddings and store in FAISS/Pinecone for retrieval.
+
+🔹 Steps
+	1.	Choose Embedding Model: Use SentenceTransformers or OpenAI text-embedding-ada-002.
+	2.	Vectorize Chunks: Convert text chunks to numerical embeddings.
+	3.	Store in FAISS/Pinecone: Create an index for fast retrieval.
