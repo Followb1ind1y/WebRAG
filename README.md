@@ -21,7 +21,7 @@ WebRAG/
 ```
 
 ---
-## **1️⃣ Web Crawling**
+## **1. Web Crawling**
 
 Extract links from a sitemap using `/robots.txt` or `/sitemap.xml`. 
 
@@ -30,7 +30,7 @@ Extract links from a sitemap using `/robots.txt` or `/sitemap.xml`.
 python src/crawl.py --url "https://python.langchain.com/sitemap.xml" --filter "/docs/tutorials/"
 ```
 
-### ✅ Output Example
+### Output Example
 ```
 🔗 Found 12 Pages in Sitemap:
 https://python.langchain.com/docs/tutorials/
