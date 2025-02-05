@@ -1,23 +1,12 @@
-# WebRAG: AI-Powered Web Knowledge Retrieval & QA 🚀  
+# **WebRAG: A Retrieval-Augmented Generation (RAG) System for Web Content**
 
-An AI-powered retrieval-augmented generation (RAG) system that extracts information from webpages, processes it using a vector database, and generates intelligent responses via a Large Language Model (LLM).  
-
-## 📌 Features  
-- **🔗 Web Scraping**: Extracts text from web pages using BeautifulSoup and requests.  
-- **📂 Text Processing**: Cleans and chunks text for vector storage.  
-- **🔍 Hybrid Retrieval**: Combines keyword-based (BM25) and dense retrieval (FAISS/Pinecone).  
-- **🤖 LLM Integration**: Uses OpenAI/GPT API for intelligent response generation.  
-- **⚡ Fast API Service**: Deploys as an API with FastAPI for easy integration.  
-- **📦 Dockerized Deployment**: Ready for cloud deployment (AWS/GCP).  
+WebRAG is designed to extract content from a given sitemap, recursively find all sub-pages of a target website, clean and store the content in a vector database, and use it in a Retrieval-Augmented Generation (RAG) pipeline powered by LangChain. 
 
 ---
-## 📂 Project Structure  
+## 📂 **Project Structure**
 
 ```bash
 WebRAG/
-│── data/                 # Store scraped web data (optional)
-│── embeddings/           # Store FAISS/Pinecone vectors
-│── models/               # Fine-tuned models (if applicable)
 │── src/
 │   ├── scraper.py        # Web scraping module
 │   ├── preprocess.py     # Text cleaning and chunking
@@ -25,37 +14,29 @@ WebRAG/
 │   ├── retriever.py      # Hybrid retrieval (BM25 + FAISS)
 │   ├── generator.py      # LLM-based response generation
 │   ├── api.py            # FastAPI service
-│── notebooks/            # Jupyter notebooks for testing
+│── WebRAG.ipynb          # Jupyter notebooks for testing
 │── docker/               # Docker deployment files
 │── requirements.txt      # Dependencies
 │── README.md             # Project Documentation
 ```
 
 ---
-## **1️⃣ Data Collection & Preprocessing**
+## **1️⃣ Web Crawling**
 
-Extract relevant text from a given **webpage URL** and preprocess it for efficient retrieval.  
+Extract links from a sitemap using `/robots.txt` or `/sitemap.xml`. 
 
-### 🔹 Steps  
-1. **Crawl Web Content**: Use `BeautifulSoup` and `requests` to extract text.  
-2. **Text Cleaning**: Remove HTML tags, special characters, and stopwords (spaCy/NLTK).  
-3. **Chunking**: Segment text into smaller units (e.g., 512 tokens per chunk).  
-
-### 🔹 Run the script  
+### Run the script  
 ```bash
-python src/scraper.py --url "https://example.com/article"
+python src/crawl.py --url "https://python.langchain.com/sitemap.xml" --filter "/docs/tutorials/"
 ```
 
 ### ✅ Output Example
 ```
-{
-  "title": "Advancements in AI Healthcare",
-  "content": [
-    "Artificial intelligence is transforming healthcare by...",
-    "One major application is medical image analysis...",
-    "...more text extracted from the webpage..."
-  ]
-}
+🔗 Found 12 Pages in Sitemap:
+https://python.langchain.com/docs/tutorials/
+https://python.langchain.com/docs/tutorials/agents/
+https://python.langchain.com/docs/tutorials/chatbot/
+...
 ```
 
 ---

@@ -107,10 +107,20 @@ def process_websites(urls: list, index_name: str = "web-rag"):
 
 if __name__ == "__main__":
     # 初始化Pinecone
-    index_name = init_pinecone()
-    print(f"使用索引 {index_name} 存储数据")
+    # index_name = init_pinecone()
+    # print(f"使用索引 {index_name} 存储数据")
 
-    # 🚀 开始爬取
-    base_url = ["https://d2l.ai/chapter_natural-language-processing-pretraining/bert.html",
-                "https://zh.d2l.ai/chapter_natural-language-processing-pretraining/bert-pretraining.html"]
-    process_websites(base_url)
+    # # 🚀 开始爬取
+    # base_url = ["https://d2l.ai/chapter_natural-language-processing-pretraining/bert.html",
+    #             "https://zh.d2l.ai/chapter_natural-language-processing-pretraining/bert-pretraining.html"]
+    # process_websites(base_url)
+
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+    vector_store = PineconeVectorStore(index_name="web-rag", embedding=embeddings)
+    results = vector_store.similarity_search(
+    "Masked Language Modeling",
+    k=2,
+    # filter={"source": "tweet"},
+)
+for res in results:
+    print(f"* {res.page_content} [{res.metadata}]")
